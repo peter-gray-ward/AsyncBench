@@ -57,11 +57,11 @@ class Backend {
 }
 
 const BackendFactory = () => [
-  new Backend("Python/FastAPI", "http://localhost:8000"),
   new Backend("Java/Spring MVC", ""),
   new Backend("Java/Spring Web Flux", ""),
-  new Backend("C#/.NET", ""),
-  new Backend("Go/Gin", "http://localhost:8080")
+  new Backend("Go/Gin", "http://localhost:8080"),
+  new Backend("C#/.NET", "http://localhost:5188"),
+  new Backend("Python/FastAPI", "http://localhost:8000"),
 ];
 
 const tests = Object.keys(SCENARIOS);

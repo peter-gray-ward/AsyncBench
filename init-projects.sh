@@ -26,10 +26,19 @@ cd ..
 
 echo -e "${BLUE}📦 Initializing Java MVC project${NC}"
 
-mkdir java-mvc-backend
-cd java-mvc-backend
 # Using Spring Initializr via curl to create a new project
-curl https://start.spring.io/starter.tgz -d dependencies=web,websocket,data-jpa,postgresql,lombok -d type=gradle-project -d bootVersion=3.2.3 -d baseDir=. -d groupId=com.asyncbench -d artifactId=java-mvc-backend -d name=java-mvc-backend -d description="Java MVC Backend for AsyncBench" -d packageName=com.asyncbench.mvc -d javaVersion=17 | tar -xzvf -
+curl -L -G https://start.spring.io/starter.tgz \ 
+     --data-urlencode dependencies=web,websocket,data-jpa,postgresql,lombok \
+     --data-urlencode type=gradle-project \
+     --data-urlencode bootVersion=3.3.0 \       
+     --data-urlencode baseDir=java-mvc-backend \
+     --data-urlencode groupId=com.asyncbench \     
+     --data-urlencode artifactId=java-mvc-backend \
+     --data-urlencode name=java-mvc-backend \                        
+     --data-urlencode description="Java MVC Backend for AsyncBench" \
+     --data-urlencode packageName=com.asyncbench.mvc \
+     --data-urlencode javaVersion=17 \
+     -o java-mvc-backend.tgz
 
 echo -e "${GREEN}✅ Created Java MVC project${NC}\n"
 
@@ -37,11 +46,30 @@ cd ..
 
 echo -e "${BLUE}📦 Initializing Java WebFlux project${NC}"
 
-mkdir java-webflux-backend
-cd java-webflux-backend
 # Using Spring Initializr via curl to create a new project
-curl https://start.spring.io/starter.tgz -d dependencies=webflux,data-r2dbc,postgresql,lombok -d type=gradle-project -d bootVersion=3.2.3 -d baseDir=. -d groupId=com.asyncbench -d artifactId=java-webflux-backend -d name=java-webflux-backend -d description="Java WebFlux Backend for AsyncBench" -d packageName=com.asyncbench.webflux -d javaVersion=17 | tar -xzvf -
+curl -L -G https://start.spring.io/starter.tgz \
+     --data-urlencode dependencies=webflux,data-r2dbc,postgresql,lombok \
+     --data-urlencode type=gradle-project \
+     --data-urlencode bootVersion=3.3.0 \
+     --data-urlencode baseDir=java-webflux-backend \
+     --data-urlencode groupId=com.asyncbench \
+     --data-urlencode artifactId=java-webflux-backend \
+     --data-urlencode name=java-webflux-backend \
+     --data-urlencode description="Java WebFlux Backend for AsyncBench" \
+     --data-urlencode packageName=com.asyncbench.webflux \
+     --data-urlencode javaVersion=17 \
+     -o java-webflux-backend.tgz
 
+# Extract the downloaded project
+tar -xzvf java-webflux-backend.tgz
+
+Warning: Binary output can mess up your terminal. Use "--output -" to tell 
+Warning: curl to output it to your terminal anyway, or consider "--output 
+Warning: <FILE>" to save to a file.
+curl: (3) Could not parse the URL, failed to set query
+zsh: command not found: --data-urlencode
+zsh: command not found: #
+tar: Error opening archive: Failed to open 'java-webflux-backend.tgz'
 echo -e "${GREEN}✅ Created Java WebFlux project${NC}\n"
 
 cd ..
