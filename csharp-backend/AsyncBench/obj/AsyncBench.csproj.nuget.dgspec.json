@@ -1,0 +1,89 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/peter/AsyncBench/csharp-backend/AsyncBench/AsyncBench.csproj": {}
+  },
+  "projects": {
+    "/Users/peter/AsyncBench/csharp-backend/AsyncBench/AsyncBench.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/peter/AsyncBench/csharp-backend/AsyncBench/AsyncBench.csproj",
+        "projectName": "AsyncBench",
+        "projectPath": "/Users/peter/AsyncBench/csharp-backend/AsyncBench/AsyncBench.csproj",
+        "packagesPath": "/Users/peter/.nuget/packages/",
+        "outputPath": "/Users/peter/AsyncBench/csharp-backend/AsyncBench/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/peter/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0"
+        ],
+        "sources": {
+          "/usr/local/Cellar/dotnet/9.0.0/libexec/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0": {
+            "targetAlias": "net9.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "all"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net9.0": {
+          "targetAlias": "net9.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.AspNetCore.SignalR": {
+              "target": "Package",
+              "version": "[1.2.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "target": "Package",
+              "version": "[9.0.3, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/Cellar/dotnet/9.0.0/libexec/sdk/9.0.100/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
