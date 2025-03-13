@@ -23,30 +23,25 @@ class Scenario {
     this.backends = backends;
   }
   execute(scenarioName) {
-    console.log('executing ', scenarioName)
-    return new Promise(resolve => {
-      const results = {};
-      let requestCount = this.backends.filter(b => b.url !== '').length;
-
-      for (let backend of this.backends) {
-        if (!backend.url) continue;
-
+    console.log('Executing', scenarioName);
+    const results = {};
+    const requests = this.backends
+      .filter(b => b.url !== '')
+      .map(backend => {
         results[backend.name] = {
           time: new Date().getTime(),
           backendName: backend.name,
           scenarioName
-        }
+        };
         
-        SCENARIOS[this.name](backend.url).then(resolution => {
-          results[resolution.name].time = new Date().getTime() - results[resolution.name].time;
-          requestCount--;
-          if (requestCount == 0) {
-            resolve(results);
-          }
+        return SCENARIOS[this.name](backend.url).then(resolution => {
+          results[backend.name].time = new Date().getTime() - results[backend.name].time;
         });
-      }
-    });
+      });
+
+    return Promise.all(requests).then(() => results);
   }
+
 }
 
 class Backend {
