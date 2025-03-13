@@ -24,16 +24,25 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
-	implementation 'org.springframework.boot:spring-boot-starter-webflux'
-	compileOnly 'org.projectlombok:lombok'
-	runtimeOnly 'org.postgresql:postgresql'
-	runtimeOnly 'org.postgresql:r2dbc-postgresql'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'io.projectreactor:reactor-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux' // ✅ WebFlux
+    implementation 'org.springframework.boot:spring-boot-starter-security' // ✅ Security
+    implementation 'org.springframework.security:spring-security-web' // ✅ Explicit Security Web
+    implementation 'org.springframework.security:spring-security-config' // ✅ Explicit Security Config
+    implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc' // ✅ Reactive DB
+    implementation 'com.fasterxml.jackson.module:jackson-module-afterburner'
+
+
+    implementation 'io.r2dbc:r2dbc-postgresql:0.8.13.RELEASE' // ✅ Ensure explicit version
+    runtimeOnly 'org.postgresql:postgresql' // ✅ JDBC Driver (optional, for tooling)
+    
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()

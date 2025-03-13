@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: java-webflux-backend
+
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/climateposts
+    username: peter
+    password: enter123
+    pool:
+      max-size: 20   # ✅ Max connections
+      initial-size: 5  # ✅ Keep some open
+      validation-query: "SELECT 1"
+
+
+  jackson:
+    time-zone: UTC
+
+server:
+  port: 9999

@@ -56,7 +56,7 @@ class Backend {
 
 const BackendFactory = () => [
   new Backend("Java/Spring MVC", "http://localhost:9000"),
-  new Backend("Java/Spring Web Flux", ""),
+  new Backend("Java/Spring Web Flux", "http://localhost:9999"),
   new Backend("Go/Gin", "http://localhost:8080"),
   new Backend("C#/.NET", "http://localhost:5188"),
   new Backend("Python/FastAPI", "http://localhost:8000"),
