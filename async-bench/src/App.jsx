@@ -9,7 +9,6 @@ const SCENARIOS = {
       var xhr = new XMLHttpRequest();
       xhr.open("GET", url + "/all-posts");
       xhr.addEventListener("load", function() {
-        console.log("--- request loaded", this.response)
         resolve(JSON.parse(this.response));
       });
       xhr.send();
@@ -22,10 +21,9 @@ class Scenario {
     this.name = name;
     this.backends = backends;
   }
-  execute(scenarioName) {
-    console.log('Executing', scenarioName);
+  execute(scenarioName, backend) {
     const results = {};
-    const requests = this.backends
+    const requests = (backend ? this.backends.filter(be => be.name == backend.name) : this.backends)
       .filter(b => b.url !== '')
       .map(backend => {
         results[backend.name] = {
@@ -57,7 +55,7 @@ class Backend {
 }
 
 const BackendFactory = () => [
-  new Backend("Java/Spring MVC", ""),
+  new Backend("Java/Spring MVC", "http://localhost:9000"),
   new Backend("Java/Spring Web Flux", ""),
   new Backend("Go/Gin", "http://localhost:8080"),
   new Backend("C#/.NET", "http://localhost:5188"),
@@ -66,6 +64,7 @@ const BackendFactory = () => [
 
 const tests = Object.keys(SCENARIOS);
 const TEST_CASES = tests.map(name => new Scenario(name, BackendFactory()));
+
 
 function TestReducer(state, testResults) {
   let reducedState = state.map(testcase => {
@@ -83,12 +82,39 @@ function TestReducer(state, testResults) {
 
 function BenchmarkTable() {
   const [state, dispatch] = useReducer(TestReducer, TEST_CASES);
-  const [loading, setLoading] = useState(false);
-  const executeTestCase = useCallback((scenario) => {
-    setLoading(true);
-    scenario.execute(scenario.name).then(testResults => {
-      dispatch(testResults);
-      setLoading(false);
+  const [loading, setLoading] = useState({
+    all: false,
+    ...(TEST_CASES.map(scenario => {
+      return scenario.backends.map(backend => {
+        return { [scenario.name + ':' + backend.name]: false }
+      }).flat()
+    }).flat())
+  });
+  const executeTestCase = useCallback((scenario, backend) => {
+    if (backend) {
+      setLoading({ [scenario.name + ':' + backend.name]: true })
+    } else {
+      setLoading({ all: true });
+    }
+    scenario.execute(scenario.name, backend).then(testResults => {
+      if (backend) {
+        setLoading({ [scenario.name + ':' + backend.name]: false })
+        dispatch(testResults);
+      } else {
+        setLoading({ all: false });
+        for (let backendName in testResults) {
+          for (let tc of TEST_CASES) {
+            if (tc.name == scenario.name) {
+              for (let tcBackend of tc.backends) {
+                if (backendName == tcBackend.name) {
+                  tcBackend.time = testResults[backendName].time;
+                }
+              }
+            }
+          }
+        }
+        dispatch(TEST_CASES);
+      }
     });
   });
   return <>
@@ -104,8 +130,22 @@ function BenchmarkTable() {
           TEST_CASES.map((scenario, index) =>
             <tr key={index}>
               <td>
-                <button onClick={() => executeTestCase(scenario)}>{scenario.name}</button>
-                <div>{loading ? 'loading...' : ''}</div>
+                <ul>
+                  <li><h3>Exceute {scenario.name}:</h3>
+                    <button onClick={() => executeTestCase(scenario)}>all</button>
+                    <div>{loading.all ? 'loading...' : ''}</div>
+                  </li>
+                  <li>
+                    <ul>
+                      {
+                        scenario.backends.map((backend, index2) => <li key={index2}>
+                          <button onClick={() => executeTestCase(scenario, backend)}>{backend.name}</button>
+                          <div>{ loading[scenario.name + ':' + backend.name] ? 'loading...' : '' }</div>
+                        </li>)
+                      }
+                    </ul>
+                  </li>
+                </ul>
               </td>
               <td>
                 <ul>

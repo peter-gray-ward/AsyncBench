@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: java-mvc-backend
+
+  datasource:
+    url: jdbc:postgresql://localhost/climateposts
+    username: peter
+    password: enter123
+    driver-class-name: org.postgresql.Driver
+
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+  jackson:
+    time-zone: UTC
+server:
+  port: 9000

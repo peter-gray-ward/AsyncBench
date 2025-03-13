@@ -24,19 +24,6 @@ async def connect_db():
         host=env["db"]["host"]
     )
 
-@dataclass
-class BenchmarkResult:
-    scenario: str
-    backend: str
-    avg_response_time: float
-    p95_response_time: float
-    p99_response_time: float
-    requests_per_second: float
-    error_rate: float
-    concurrent_connections: int
-    memory_usage: float
-    cpu_usage: float
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
