@@ -1,4 +1,4 @@
-@AsyncBench_HostAddress = http://localhost:5271
+@AsyncBench_HostAddress = http://localhost:5188
 
 GET {{AsyncBench_HostAddress}}/weatherforecast/
 Accept: application/json
