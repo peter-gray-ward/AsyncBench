@@ -2,15 +2,14 @@
 
 Each backend will handle the following scenarios, and the React frontend will display performance metrics like response time, concurrency handling, and resource usage.
 
-| **Scenario** | **Description** |
-|-------------|---------------|
-| **REST API: Concurrent Requests Handling** | **Endpoint:** `GET /process` <br> Simulate processing time (e.g., 500ms per request). <br> React frontend will send multiple requests in parallel. <br> Compare how each backend handles concurrent requests and responds. |
-| **WebSockets: Real-time Message Broadcast** | WebSocket connection that listens for events. <br> Backend broadcasts messages to connected clients every second. <br> Compare latency and concurrency handling across languages. |
-| **REST API: Long-running Task with Polling vs WebSockets** | **Polling approach:** `GET /long-task/{id}` <br> Client sends a request, and backend takes 5 seconds to process before returning a response. <br> Client continuously polls the endpoint to check for completion. <br> **WebSocket approach:** WebSocket notifies the frontend when processing is complete. <br> Compare efficiency of polling vs WebSockets in different languages. |
-| **Database Query Simulation** | Simulate an I/O-heavy operation with PostgreSQL. <br> **Endpoint:** `GET /data` <br> Query a large dataset from PostgreSQL and returning paginated results. <br> Compare blocking vs non-blocking execution. |
-| **Background Job Processing** | **Scenario:** A request triggers a job that runs in the background. <br> **Endpoint:** `POST /start-job` <br> Backend processes the job asynchronously and returns `jobId`. <br> **Endpoint:** `GET /job-status/{jobId}` <br> Returns job completion status. <br> Compare async task execution across languages. |
+| **Scenario**                        | **What It Tests**                  | **Expected Results**                                     |
+|--------------------------------------|------------------------------------|---------------------------------------------------------|
+| **Large Dataset Fetch**             | Serialization & JSON encoding     | Go & C# likely faster due to better serializers        |
+| **Concurrent Requests (50 Users)**  | Threading & async handling        | Go (goroutines) & .NET (async) expected to perform best |
+| **WebSockets Latency**              | Event-driven response time        | Go, .NET, and WebFlux expected to handle concurrency well |
+| **Long Task (Polling vs WebSockets)** | Efficient async handling         | Polling should be slowest, WebSockets fastest          |
+| **Database Query Handling**         | Blocking vs non-blocking DB calls | WebFlux (R2DBC) should win over traditional JDBC       |
 
----
 
 # Tech Stack for Each Backend
 
